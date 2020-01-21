@@ -1,31 +1,42 @@
-const { getDetail, getList } = require('../controller/blog')
-const { SuccesRes, ErrorRes } = require('../models/resModel')
+const {
+    getDetail,
+    getList,
+    blogNew,
+    blogUpdate,
+    blogDel
+} = require("../controller/blog");
+const { SuccesModel, ErrorModel } = require("../models/resModel");
 
 module.exports = (req, res) => {
-    const { method, path, query } = req
-    if (method === 'GET' && path === '/api/blog/list') {
-        const { author, keyword } = query
-        let data = getList(author, keyword)//负责处理数据
-        return new SuccesRes(data)//负责返回标准格式
+    const { method, path, query, body } = req;
+    const { id } = query;
+    if (method === "GET" && path === "/api/blog/list") {
+        const { author, keyword } = query;
+        let data = getList(author, keyword); //负责处理数据
+        return new SuccesModel(data); //负责返回标准格式
     }
-    if (method === 'GET' && path === '/api/blog/detail') {
-        const { id } = query
-        let data = getDetail(id)
-        return new SuccesRes(data)
+    if (method === "GET" && path === "/api/blog/detail") {
+        let data = getDetail(id);
+        return new SuccesModel(data);
     }
-    if (method === 'POST' && path === '/api/blog/new') {
-        return {
-            msg: 'new-blog'
+    if (method === "POST" && path === "/api/blog/new") {
+        const data = blogNew(body);
+        return new SuccesModel(data);
+    }
+    if (method === "POST" && path === "/api/blog/update") {
+        const data = blogUpdate(id, body);
+        if (data) {
+            return new SuccesModel();
+        } else {
+            return new ErrorModel("更新博客失败");
         }
     }
-    if (method === 'POST' && path === '/api/blog/update') {
-        return {
-            msg: 'update-blog'
+    if (method === "POST" && path === "/api/blog/del") {
+        const data = blogDel(id);
+        if (data) {
+            return new SuccesModel();
+        } else {
+            return new ErrorModel("删除博客失败");
         }
     }
-    if (method === 'POST' && path === '/api/blog/del') {
-        return {
-            msg: 'del-blog'
-        }
-    }
-}
+};
