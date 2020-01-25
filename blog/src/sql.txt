@@ -1,0 +1,41 @@
+ //创建数据库
+CREATE SCHEMA `myblogs` ;
+
+//创建表格
+CREATE TABLE `myblogs`.`users` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(20) NOT NULL,
+  `realname` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`));
+
+//使用某个库
+use qlName
+
+//展示表
+show tables
+
+//增加内容
+insert into tabName (key1,key2,key3) values(val1,val2,val3);
+//删除
+delete form blogs where title='标题A'
+//更新
+update users set username='2' where xxx
+//查询内容
+select * from users //查出所有列
+select id username from users where username='zhangsan' and status = 1 order by id //and可以替换为or
+select * from blogs where title like '%标题%'//模糊查询
+
+
+
+//新增删除修改返回的格式
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 6,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0
+} newData
