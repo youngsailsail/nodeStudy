@@ -16,13 +16,18 @@ module.exports = async (req, res) => {
     console.log(session, "session");
     const { id } = query;
     if (method === "GET" && path === "/api/blog/list") {
-        const { author, keyword } = query;
+        let { author, keyword, isAdmin } = query;
+        if (isAdmin) {
+            const loginCheckRes = loginCheck(session);
+            if (loginCheckRes) return loginCheckRes;
+            author = req.session.username;
+        }
         let data = await getList(author, keyword);
         return new SuccesModel(data);
     }
     if (method === "GET" && path === "/api/blog/detail") {
         let data = await getDetail(id);
-        return new SuccesModel(data);
+        return new SuccesModel(data[0]);
     }
     if (method === "POST" && path === "/api/blog/new") {
         const loginCheckRes = loginCheck(session);

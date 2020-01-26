@@ -24,7 +24,14 @@ const newBlog = ({ title, content, author }) => {
     });
 };
 const updateBlog = (id, author, { title, content }) => {
-    let sql = `update blogs set title='${title}',content='${content}' where id='${id}' and author='${author}'`;
+    let sql = `update blogs set `;
+    if (title) {
+        sql += `title='${title}', `;
+    }
+    if (content) {
+        sql += `content='${content}' `;
+    }
+    sql += `where id='${id}' and author='${author}'`;
     return exec(sql).then(updateData => {
         console.log(updateData, "updateData");
         return !!updateData.affectedRows;

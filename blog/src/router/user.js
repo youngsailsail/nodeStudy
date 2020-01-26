@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
             req.session.username = data.username;
             req.session.realname = data.realname;
             set(req.sessionId, req.session);
-            return new SuccesModel();
+            return new SuccesModel(req.session);
         } else {
             return new ErrorModel("登录失败");
         }
