@@ -17,6 +17,7 @@
     </div>
 </template>
 <script>
+import { genPassword } from "../utils/cryp";
 export default {
     name: "Login",
     data() {
@@ -29,6 +30,7 @@ export default {
     },
     methods: {
         async login() {
+            this.loginData.password = genPassword(this.loginData.password);
             this.data = await this.$http.post({
                 url: "/api/user/login",
                 data: this.loginData

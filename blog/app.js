@@ -1,7 +1,10 @@
 const queryString = require("querystring");
+const xss = require("xss");
 const blogRouterHandel = require("./src/router/blog");
 const userRouterHandel = require("./src/router/user");
 const { get, set } = require("./src/db/redis");
+const { accessLog } = require("./src/utils/setLog");
+
 // const SESSION_DATA = {};
 const getCookieExpires = () => {
     const d = new Date();
@@ -27,8 +30,6 @@ const getPostData = req => {
                     resolve({});
                     return;
                 }
-                console.log(postData, "postData");
-
                 resolve(JSON.parse(postData));
             });
         }
@@ -38,8 +39,15 @@ const handle = (req, res) => {
     res.setHeader("Content-type", "application/json");
     req.path = req.url.split("?")[0];
     req.query = queryString.parse(req.url.split("?")[1]);
+    accessLog(
+        `${req.method}--${req.url}--${req.headers["user-agent"]}--${Date.now()}`
+    );
     getPostData(req).then(async postData => {
-        req.body = postData;
+        req.body = {};
+        Object.entries(postData).forEach(([key, val], index) => {
+            req.body[key] = xss(val);
+        });
+        console.log(req.body, "req.body");
         req.session = {};
         req.cookie = {};
         let needSetCookie = false;
@@ -70,7 +78,6 @@ const handle = (req, res) => {
         }
         req.sessionId = userid;
         const redisData = await get(req.sessionId);
-        console.log(redisData, "redisData");
         req.session = redisData || {};
         // req.session = SESSION_DATA[userid];
         if (needSetCookie) {

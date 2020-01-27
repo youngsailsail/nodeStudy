@@ -21,4 +21,4 @@ const exec = sql => {
         });
     });
 };
-module.exports = { exec };
+module.exports = { exec, escape: sql.escape };

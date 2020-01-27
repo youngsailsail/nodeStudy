@@ -33,14 +33,12 @@ const updateBlog = (id, author, { title, content }) => {
     }
     sql += `where id='${id}' and author='${author}'`;
     return exec(sql).then(updateData => {
-        console.log(updateData, "updateData");
         return !!updateData.affectedRows;
     });
 };
 const delBlog = (id, author) => {
     let sql = `delete from blogs where id='${id}'and author='${author}'`;
     return exec(sql).then(delData => {
-        console.log(delData, "delData");
         return !!delData.affectedRows;
     });
 };
