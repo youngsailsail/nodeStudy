@@ -15,7 +15,6 @@ const exec = sql => {
             }
             if (res) {
                 console.log(res, "res-sql");
-
                 resolve(res);
             }
         });

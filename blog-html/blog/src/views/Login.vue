@@ -1,45 +1,46 @@
 <template>
-    <div>
-        <h2>登录</h2>
-        <div class="box-input">
-            <input
-                type="text"
-                placeholder="username"
-                v-model="loginData.username"
-            />
-            <input
-                type="password"
-                placeholder="password"
-                v-model="loginData.password"
-            />
-            <button @click="login">提交</button>
-        </div>
+  <div>
+    <h2>登录</h2>
+    <div class="box-input">
+      <input
+        type="text"
+        placeholder="username"
+        v-model="loginData.username"
+      />
+      <input
+        type="password"
+        placeholder="password"
+        v-model="loginData.password"
+      />
+      <button @click="login">提交</button>
     </div>
+  </div>
 </template>
 <script>
 import { genPassword } from "../utils/cryp";
 export default {
-    name: "Login",
-    data() {
-        return {
-            loginData: {
-                username: "",
-                password: ""
-            }
-        };
-    },
-    methods: {
-        async login() {
-            this.loginData.password = genPassword(this.loginData.password);
-            this.data = await this.$http.post({
-                url: "/api/user/login",
-                data: this.loginData
-            });
-            if (this.data.username) {
-                this.$router.push(`/`);
-            }
-        }
+  name: "Login",
+  data() {
+    return {
+      loginData: {
+        username: "",
+        password: ""
+      }
+    };
+  },
+  methods: {
+    async login() {
+      const data = { ...this.loginData };
+      data.password = genPassword(data.password);
+      this.data = await this.$http.post({
+        url: "/api/user/login",
+        data
+      });
+      if (this.data.username) {
+        this.$router.push(`/`);
+      }
     }
+  }
 };
 </script>
 <style lang="scss" scoped>
