@@ -1,9 +1,7 @@
 const router = require("koa-router")();
-
-router.prefix("/api/user");
 const { login } = require("../controller/user");
-
 const { SuccesModel, ErrorModel } = require("../models/resModel");
+router.prefix("/api/user");
 router.post("/login", async (ctx, next) => {
     try {
         const data = await login(ctx.request.body);
@@ -15,7 +13,7 @@ router.post("/login", async (ctx, next) => {
             ctx.body = new ErrorModel("登录失败");
         }
     } catch (error) {
-        console.log(error);
+        throw new Error(error);
     }
 });
 

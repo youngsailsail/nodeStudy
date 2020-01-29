@@ -10,9 +10,9 @@ const redisStor = require("koa-redis");
 const fs = require("fs");
 const path = require("path");
 const morgan = require("koa-morgan");
-
-const index = require("./routes/index");
-const users = require("./routes/users");
+const { REDIS_CONF } = require("./conf/db");
+// const index = require("./routes/index");
+// const users = require("./routes/users");
 const user = require("./routes/user");
 const blog = require("./routes/blog");
 
@@ -26,7 +26,7 @@ app.use(
     })
 );
 app.use(json());
-app.use(logger());
+app.use(logger()); //设置打印格式更美观
 app.use(require("koa-static")(__dirname + "/public"));
 
 app.use(
@@ -56,6 +56,7 @@ if (ENV == "dev") {
         })
     );
 }
+//session实现登录验证
 app.keys = ["xasa-44ad2"];
 app.use(
     session({
@@ -63,13 +64,13 @@ app.use(
             maxAge: 1 * 24 * 60 * 60 * 1000
         },
         store: redisStor({
-            all: "127.0.0.1:6379"
+            all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
         })
     })
 );
 // routes
-app.use(index.routes(), index.allowedMethods());
-app.use(users.routes(), users.allowedMethods());
+// app.use(index.routes(), index.allowedMethods());
+// app.use(users.routes(), users.allowedMethods());
 app.use(user.routes(), user.allowedMethods());
 app.use(blog.routes(), blog.allowedMethods());
 

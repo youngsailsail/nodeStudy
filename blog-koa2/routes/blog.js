@@ -1,6 +1,4 @@
 const router = require("koa-router")();
-
-router.prefix("/api/blog");
 const {
     getDetail,
     getList,
@@ -10,6 +8,7 @@ const {
 } = require("../controller/blog");
 const logincheck = require("../middleware/logincheck");
 const { SuccesModel, ErrorModel } = require("../models/resModel");
+router.prefix("/api/blog");
 router.get("/list", async (ctx, next) => {
     const { query, session } = ctx;
     let { author, keyword, isAdmin } = query;

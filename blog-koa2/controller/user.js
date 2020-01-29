@@ -1,14 +1,13 @@
 const { exec, escape } = require("../db/sql");
 const { genPassword } = require("../utils/cryp");
 
-const login = ({ username, password }) => {
+const login = async ({ username, password }) => {
     password = escape(genPassword(password));
-    let sql = `select * from users where username=${escape(
+    let sql = `select username,realname from users where username=${escape(
         username
     )} and password=${password}`;
-    return exec(sql).then(res => {
-        return res[0];
-    });
+    const data = await exec(sql);
+    return data[0];
 };
 module.exports = {
     login

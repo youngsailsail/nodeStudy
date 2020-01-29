@@ -1,5 +1,5 @@
 const env = process.env.NODE_ENV;
-const initObj = {
+const sqlObj = {
     host: "localhost",
     port: "3302",
     database: "myblogs",
@@ -14,10 +14,10 @@ let SQL_CONF;
 let REDIS_CONF;
 
 if (env == "dev") {
-    SQL_CONF = initObj;
+    SQL_CONF = sqlObj;
     REDIS_CONF = redisObj;
 } else {
-    SQL_CONF = initObj;
+    SQL_CONF = sqlObj;
     REDIS_CONF = redisObj;
 }
 
