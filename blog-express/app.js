@@ -3,7 +3,7 @@ var express = require("express");
 var path = require("path");
 const fs = require("fs");
 var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+var logger = require("morgan"); //美化打印格式
 
 const session = require("express-session");
 const RedisStore = require("connect-redis")(session);

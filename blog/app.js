@@ -1,5 +1,5 @@
-const queryString = require("querystring");
-const xss = require("xss");
+const queryString = require("querystring"); //解析url里面的query
+const xss = require("xss"); //预防xss攻击,把js代码的<script>的<>转义
 const blogRouterHandel = require("./src/router/blog");
 const userRouterHandel = require("./src/router/user");
 const { get, set } = require("./src/db/redis");

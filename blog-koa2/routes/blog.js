@@ -10,6 +10,7 @@ const logincheck = require("../middleware/logincheck");
 const { SuccesModel, ErrorModel } = require("../models/resModel");
 router.prefix("/api/blog");
 router.get("/list", async (ctx, next) => {
+    console.log("list");
     const { query, session } = ctx;
     let { author, keyword, isAdmin } = query;
     if (isAdmin) {

@@ -19,7 +19,6 @@ rl.on("line", lineNum => {
     sun += 1;
     const res = lineNum.split("-")[4];
     if (res.includes("Chrome")) {
-        console.log(chromeNum, "chromeNum");
         chromeNum += 1;
     }
 });

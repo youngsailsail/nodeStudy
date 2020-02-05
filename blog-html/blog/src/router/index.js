@@ -5,7 +5,7 @@ import BlogDetail from "../views/BlogDetail";
 import Login from "../views/Login";
 import Mine from "../views/Mine";
 import NewOrUpdate from "../views/NewOrUpdate";
-
+import Upload from "../views/Upload";
 Vue.use(VueRouter);
 
 const routes = [
@@ -41,6 +41,11 @@ const routes = [
         path: "/login",
         name: "login",
         component: Login
+    },
+    {
+        path: "/upload",
+        name: "upload",
+        component: Upload
     }
 ];
 

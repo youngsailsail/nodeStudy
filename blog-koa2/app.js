@@ -10,11 +10,17 @@ const redisStor = require("koa-redis");
 const fs = require("fs");
 const path = require("path");
 const morgan = require("koa-morgan");
+//文件删除
+var koaStatic = require("koa-static");
+var koaBody = require("koa-body"); //文件保存库
 const { REDIS_CONF } = require("./conf/db");
+
 // const index = require("./routes/index");
 // const users = require("./routes/users");
+
 const user = require("./routes/user");
 const blog = require("./routes/blog");
+const upload = require("./routes/upload");
 
 // error handler
 onerror(app);
@@ -68,11 +74,27 @@ app.use(
         })
     })
 );
+// app.use(
+//     koaBody({
+//         formidable: {
+//             //设置文件的默认保存目录，不设置则保存在系统临时目录下
+//             uploadDir: path.resolve(__dirname, "./static/uploads"),
+//             maxFileSize: 200 * 1024 * 1024
+//         },
+//         multipart: true // 开启文件上传，默认是关闭
+//     })
+// );
+
+//开启静态文件访问
+// app.use(koaStatic(path.resolve(__dirname, "./static")));
+
 // routes
 // app.use(index.routes(), index.allowedMethods());
 // app.use(users.routes(), users.allowedMethods());
+
 app.use(user.routes(), user.allowedMethods());
 app.use(blog.routes(), blog.allowedMethods());
+app.use(upload.routes(), upload.allowedMethods());
 
 // error-handling
 app.on("error", (err, ctx) => {
