@@ -1,6 +1,6 @@
-const ENV = process.ENV.NODE_ENV;
+const ENV = process.env.NODE_ENV
 module.exports = {
-    isDev: ENV == "dev",
-    isPrd: ENV == "prd",
-    isTest: ENV == "test"
-};
+    isDev: ENV == 'dev',
+    isPrd: ENV == 'prd',
+    isTest: ENV == 'test'
+}
