@@ -54,8 +54,7 @@ async function changeInfo({ctx,nickName,picture,city}) {
     return new ErrorModel(changeInfoFailInfo)
 
 }
-async function changePassword({ctx,newPassword,password}) {
-    const {userName}=ctx.session.userInfo
+async function changePassword({userName,newPassword,password}) {
     const res=await updateUser({
         newPassword:doCrypto(newPassword)
     },{
@@ -69,6 +68,10 @@ async function changePassword({ctx,newPassword,password}) {
     return new ErrorModel(changePasswordFailInfo)
 
 }
+async function logout(ctx) {
+    await delete ctx.session.userInfo
+    return new SuccesModel()
+}
 module.exports={
-    isExist,register,login,changeInfo,changePassword
+    isExist,register,login,changeInfo,changePassword,logout
 }

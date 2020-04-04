@@ -32,6 +32,4 @@ const User=sql.define('user',{
         comment:'城市'
     }
 })
-module.exports={
-    User
-}
+module.exports=User

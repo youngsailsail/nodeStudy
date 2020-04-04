@@ -1,4 +1,4 @@
-const {User}=require('../db/models/User')
+const User=require('../db/models/User')
 const {formatUser}=require('./_format')
 const  getUserInfo=async(userName,Password)=>{
     const whereOpt={

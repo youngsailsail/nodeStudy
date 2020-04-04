@@ -1,6 +1,8 @@
 const router = require('koa-router')()
-const {isExist,register,login,changeInfo,changePassword}=require('../../controller/user')
+const {isExist,register,login,changeInfo,changePassword,logout}=require('../../controller/user')
 const {genValidator}=require('../../middlewares/validator')
+const {loginApiCheck}=require('../../middlewares/loginCheck')
+
 const {userValidate}=require('../../validator/user')
 
 router.prefix('/api/user')
@@ -17,12 +19,17 @@ router.post('/login', async (ctx, next) => {
     const {userName,password}=ctx.request.body
     ctx.body=await login({ctx,userName,password})
 })
-router.patch('/changeInfo',genValidator(userValidate), async (ctx, next) => {
+router.patch('/changeInfo',loginApiCheck,genValidator(userValidate), async (ctx, next) => {
     const {nickName,city,picture}=ctx.request.body
     ctx.body=await changeInfo({ctx,nickName,city,picture})
 })
-router.patch('/changePassword',genValidator(userValidate), async (ctx, next) => {
+router.patch('/changePassword',loginApiCheck,genValidator(userValidate), async (ctx, next) => {
     const {newPassword,password}=ctx.request.body
-    ctx.body=await changePassword({ctx,newPassword,password})
+    const {userName}=ctx.session.userInfo
+    ctx.body=await changePassword({userName,newPassword,password})
 })
+router.post('/logout',loginApiCheck, async (ctx, next) => {
+    ctx.body=await logout(ctx)
+})
+
 module.exports = router
