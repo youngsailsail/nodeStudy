@@ -11,7 +11,7 @@ const Blog=sql.define('blog',{
         allowNull:false,
         comment:'微博内容',
     },
-    img:{
+    image:{
         type:STRING,
         comment:'图片',
     }
