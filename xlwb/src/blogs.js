@@ -1,3 +1,3 @@
-const { set, get } = require('./cache/_redis')
+const { set } = require('./cache/_redis')
 
 set('key1', 'val1')

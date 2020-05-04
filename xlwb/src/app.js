@@ -8,29 +8,30 @@ const logger = require('koa-logger')
 const redisStore = require('koa-redis')
 const session = require('koa-generic-session')
 const { REDIS_CONF } = require('./conf/db')
-const koaStatic=require('koa-static')
-const path=require('path')
+const koaStatic = require('koa-static')
+const path = require('path')
 
 //引入路由
+const blogProfileApiRouter = require('./routes/api/blog-profile')
 const homeApiRouter = require('./routes/api/blog-home')
 const blogViewRouter = require('./routes/view/blog')
 const utilsApiRouter = require('./routes/api/utils')
 const userApiRouter = require('./routes/api/user')
 const userViewRouter = require('./routes/view/user')
 const error = require('./routes/view/error')
-const {isPrd}=require('./utils/env')
+const { isPrd } = require('./utils/env')
 
 // const jwtkoa=require('koa-jwt')
-const {SESSION_SECRET_KEY}=require('./conf/secretKeys')
+const { SESSION_SECRET_KEY } = require('./conf/secretKeys')
 
-let conf={}
+let conf = {}
 // error handler
-if(isPrd){
-    conf={
-        redirect:'/error'
+if (isPrd) {
+    conf = {
+        redirect: '/error'
     }
 }
-onerror(app,conf)
+onerror(app, conf)
 
 // middlewares
 app.use(
@@ -41,7 +42,7 @@ app.use(
 app.use(json())
 app.use(logger())
 app.use(koaStatic(__dirname + '/public'))
-app.use(koaStatic(path.join(__dirname,'..','uploadFiles')))
+app.use(koaStatic(path.join(__dirname, '..', 'uploadFiles')))
 
 app.use(
     views(__dirname + '/views', {
@@ -80,6 +81,7 @@ app.use(
     })
 )
 // routes
+app.use(blogProfileApiRouter.routes(), blogProfileApiRouter.allowedMethods())
 app.use(homeApiRouter.routes(), homeApiRouter.allowedMethods())
 app.use(utilsApiRouter.routes(), utilsApiRouter.allowedMethods())
 app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
