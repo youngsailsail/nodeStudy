@@ -16,9 +16,8 @@ const errorHandle = (status, other) => {
 }
 
 // 创建axios实例
-var instance = axios.create({ timeout: 1000 * 12 });
-// 设置post请求头
-instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+var instance = axios.create({ timeout: 1000 * 12, baseURL: 'http://localhost:8000' });
+
 /** 
  * 请求拦截器 
  */
@@ -31,7 +30,7 @@ instance.interceptors.request.use(
 // 响应拦截器
 instance.interceptors.response.use(
     // 请求成功
-    res => res.status === 200 ? Promise.resolve(res) : Promise.reject(res),
+    res => res.status === 200 && res.data.errno === 0 ? Promise.resolve(res.data.data) : Promise.reject(res.data),
     // 请求失败
     error => {
         const { response } = error;
