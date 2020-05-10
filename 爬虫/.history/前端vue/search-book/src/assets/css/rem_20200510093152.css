@@ -1,0 +1,13 @@
+@media screen and (max-width: 768px){
+.container{
+    width: 99%;
+}
+div.top-fix-nav input.title {
+    font-size: 16px;
+    border-color: #b8b8b8 #ccc;
+    width: 500px;
+    padding: 0 5px;
+    height: 30px;
+}
+
+}

@@ -1,0 +1,20 @@
+@media screen and (max-width: 768px){
+.container{
+    width: 95%;
+}
+.iframe,.pageSkip{
+display: none
+}
+}
+
+@media screen and (max-width: 1300px){
+    .iframe,.pageSkip{
+    display: none
+    }
+ }
+
+ @media screen and (max-width: 1300px){
+    .iframe,.pageSkip{
+    display: none
+    }
+ }
