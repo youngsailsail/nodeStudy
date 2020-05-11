@@ -2,13 +2,10 @@
   <div class="top-fix-nav">
     <div class="container no-c-border">
       <span class="name">
-        <img src="/logo.png" alt="" class="logo">
-        <a href="/">
-          随你搜
-        </a>
+        <a href="/">随你搜</a>
       </span>
       <form @submit.prevent="submit" class="form">
-        <input placeholder="输入关键词" autocomplete="off" maxlength="255" type="text" class="title" name="n" v-model.trim="searchTxt" />
+        <input placeholder="输入关键词搜索资源" autocomplete="off" maxlength="255" type="text" class="title" name="n" v-model.trim="searchTxt" />
         <input type="submit" class="s_btn" value="搜资源" />
       </form>
     </div>
@@ -44,13 +41,4 @@ export default {
   display: flex;
   align-items: center;
 }
-.name {
-  display: flex;
-  align-items: center;
-}
-.logo {
-  height: 100%;
-  margin-right: 5px;
-}
 </style>
-

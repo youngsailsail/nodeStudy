@@ -8,7 +8,7 @@
         </a>
       </span>
       <form @submit.prevent="submit" class="form">
-        <input placeholder="输入关键词" autocomplete="off" maxlength="255" type="text" class="title" name="n" v-model.trim="searchTxt" />
+        <input placeholder="输入关键词搜索资源" autocomplete="off" maxlength="255" type="text" class="title" name="n" v-model.trim="searchTxt" />
         <input type="submit" class="s_btn" value="搜资源" />
       </form>
     </div>
@@ -50,7 +50,6 @@ export default {
 }
 .logo {
   height: 100%;
-  margin-right: 5px;
 }
 </style>
 
