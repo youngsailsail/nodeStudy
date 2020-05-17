@@ -1,6 +1,7 @@
 const router = require('koa-router')()
 const { loginViewCheck } = require('../../middlewares/loginCheck')
 const { getProfileBlogList } = require('../../controller/blog-profile')
+const { getSuqareBlogList } = require('../../controller/blog-square')
 
 router.get('/', loginViewCheck, async (ctx, next) => {
     await ctx.render('index', {})
@@ -21,7 +22,6 @@ router.get('/profile/:userName', loginViewCheck, async (ctx, next) => {
         currUserName,
         pageIndex: 0,
     })
-    console.log(userInfo, 'userInfo22')
     await ctx.render('profile', {
         blogData: {
             ...res.data
@@ -32,5 +32,8 @@ router.get('/profile/:userName', loginViewCheck, async (ctx, next) => {
         }
     })
 })
-
+router.get('/square', async (ctx, next) => {
+    const { data: blogData } = await getSuqareBlogList({ pageIndex: 0 })
+    await ctx.render('square', { blogData })
+})
 module.exports = router

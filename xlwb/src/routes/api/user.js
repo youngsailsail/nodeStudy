@@ -17,7 +17,9 @@ router.post('/register', genValidator(userValidate), async (ctx, next) => {
 })
 router.post('/login', async (ctx, next) => {
     const { userName, password } = ctx.request.body
-    ctx.body = await login({ ctx, userName, password })
+    let res = await login({ ctx, userName, password })
+    console.log(res, 'resresresres')
+    ctx.body = res
 })
 router.patch('/changeInfo', loginApiCheck, genValidator(userValidate), async (ctx, next) => {
     const { nickName, city, picture } = ctx.request.body
