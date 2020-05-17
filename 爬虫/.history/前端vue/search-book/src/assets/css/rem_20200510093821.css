@@ -1,0 +1,17 @@
+@media screen and (max-width: 768px){
+.container{
+    width: 95%;
+}
+div.top-fix-nav span.name{
+    display: none
+}
+div.top-fix-nav .container{
+    justify-content: center
+}
+div.top-fix-nav input.title {
+    width: 200px;
+}
+.iframe{
+    
+}
+}

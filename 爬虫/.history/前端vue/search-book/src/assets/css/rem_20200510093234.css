@@ -1,0 +1,12 @@
+@media screen and (max-width: 768px){
+.container{
+    width: 99%;
+}
+.div.top-fix-nav span.name{
+    display: none
+}
+div.top-fix-nav input.title {
+    width: 300px;
+}
+
+}
