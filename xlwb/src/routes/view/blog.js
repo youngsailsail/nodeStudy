@@ -17,28 +17,27 @@ router.get('/profile/:userName', loginViewCheck, async (ctx, next) => {
     let { userInfo } = ctx.session
     const { userName: myUserName, id: myId } = userInfo
     let isMe = myUserName == currUserName
+    let curUserInfo = userInfo
     if (!isMe) {
         let res = await isExist(currUserName)
         if (res.errno !== 0) {
             return
         }
-        userInfo = res.data
+        curUserInfo = res.data
     }
     let res = await getProfileBlogList({
         userName: currUserName,
         pageIndex: 0,
     })
-    let fansData = await getFansList({ userId: userInfo.id })
+    let fansData = await getFansList({ userId: curUserInfo.id })
     let { fansCount, fansList } = fansData.data
-
     let amIFollowed = fansList.some(item => item.id == myId)
-    console.log(fansList, userInfo.id, myId, amIFollowed, 'fansListfansListfansList')
     await ctx.render('profile', {
         blogData: {
             ...res.data
         },
         userData: {
-            userInfo,
+            userInfo: curUserInfo,
             amIFollowed,
             isMe,
             fansData: { count: fansCount, list: fansList }
