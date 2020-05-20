@@ -29,9 +29,12 @@ router.get('/profile/:userName', loginViewCheck, async (ctx, next) => {
         userName: currUserName,
         pageIndex: 0,
     })
+    //获取粉丝列表
     let fansData = await getFansList({ userId: curUserInfo.id })
     let { fansCount, fansList } = fansData.data
+    //是否关注
     let amIFollowed = fansList.some(item => item.id == myId)
+    //获取关注人列表
     await ctx.render('profile', {
         blogData: {
             ...res.data
@@ -40,7 +43,8 @@ router.get('/profile/:userName', loginViewCheck, async (ctx, next) => {
             userInfo: curUserInfo,
             amIFollowed,
             isMe,
-            fansData: { count: fansCount, list: fansList }
+            fansData: { count: fansCount, list: fansList },
+            followersData: { count: fansCount, list: fansList }
         }
     })
 })

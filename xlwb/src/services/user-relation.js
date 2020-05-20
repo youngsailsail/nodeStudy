@@ -36,4 +36,5 @@ async function deleteFollower({ followId, userId }) {
     })
     return result > 0
 }
+// 
 module.exports = { getUserByFollowId, addFollower, deleteFollower }
