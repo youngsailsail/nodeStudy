@@ -15,6 +15,15 @@ async function create({ userId, image, content }) {
       userNameList.push(userName)
       return matchStr
     })
+    const atUserNameList = []
+    content = content.replace(
+      REG_FOR_AT_WHO,
+      (matchStr, nickName, userName) => {
+        // 目的不是 replace 而是获取 userName
+        atUserNameList.push(userName)
+        return matchStr // 替换不生效，预期
+      }
+    )
     //获取用户id列表
     let usersList = await Promise.all(userNameList.map(userName => isExist(userName)))
     let userIdList = usersList.map(user => user.id)

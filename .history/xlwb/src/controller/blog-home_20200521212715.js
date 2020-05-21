@@ -11,7 +11,7 @@ async function create({ userId, image, content }) {
   try {
     //收集用户名
     let userNameList = []
-    content = content.replace(REG_FOR_AT_WHO, (matchStr, nickName, userName) => {
+    content.replace(REG_FOR_AT_WHO, (matchStr, userName) => {
       userNameList.push(userName)
       return matchStr
     })

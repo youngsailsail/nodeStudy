@@ -11,7 +11,7 @@ async function create({ userId, image, content }) {
   try {
     //收集用户名
     let userNameList = []
-    content = content.replace(REG_FOR_AT_WHO, (matchStr, nickName, userName) => {
+    content.replace(REG_FOR_AT_WHO, (matchStr, userName) => {
       userNameList.push(userName)
       return matchStr
     })
@@ -20,7 +20,7 @@ async function create({ userId, image, content }) {
     let userIdList = usersList.map(user => user.id)
     const res = await createBlog({ userId, image, content: xss(content) });
     //写入at表
-    let data = await Promise.all(userIdList.map(userId => createAtRelation({ userId, blogId: res.id })))
+    await Promise.all(userIdList.map(userId => createAtRelation({ userId, blogId: res.id, isRead: false })))
     return new SuccesModel(res);
   } catch (error) {
     console.error(error);
