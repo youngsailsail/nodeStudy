@@ -7,13 +7,13 @@ const { PAGE_SIZE } = require('../conf/constant')
 const { getBlogListByCach } = require('../cache/blog')
 
 async function getSuqareBlogList({ pageIndex }) {
-    let { blogList, count } = await getBlogListByCach(pageIndex, PAGE_SIZE)
+    const { blogList, count } = await getBlogListByCach(pageIndex, PAGE_SIZE)
     return new SuccesModel({
         isEmpty: blogList.length == 0,
         count,
         blogList,
         pageSize: PAGE_SIZE,
-        pageIndex
+        pageIndex,
     })
 }
 

@@ -2,11 +2,11 @@
  * @description 操作redis
  * @author yff
  */
-const { REDIS_CONF } = require('../conf/db')
 const redis = require('redis')
-//创建客户端
+const { REDIS_CONF } = require('../conf/db')
+// 创建客户端
 const redisClint = redis.createClient(REDIS_CONF.port, REDIS_CONF.host)
-redisClint.on('err', err => {
+redisClint.on('err', (err) => {
     console.log(err)
 })
 /**
@@ -24,26 +24,24 @@ const set = (key, val, timeout = 60 * 60) => {
  *
  * @param {String} key 键
  */
-const get = key => {
-    return new Promise((resolve, reject) => {
-        redisClint.get(key, (err, val) => {
-            if (err) {
-                reject(err)
-            } else {
-                if (val == null) {
-                    resolve(null)
-                    return
-                }
-                try {
-                    resolve(JSON.parse(val))
-                } catch (error) {
-                    resolve(val)
-                }
+const get = (key) => new Promise((resolve, reject) => {
+    redisClint.get(key, (err, val) => {
+        if (err) {
+            reject(err)
+        } else {
+            if (val == null) {
+                resolve(null)
+                return
             }
-        })
+            try {
+                resolve(JSON.parse(val))
+            } catch (error) {
+                resolve(val)
+            }
+        }
     })
-}
+})
 module.exports = {
     set,
-    get
+    get,
 }

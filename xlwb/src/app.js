@@ -1,4 +1,5 @@
 const Koa = require('koa')
+
 const app = new Koa()
 const views = require('koa-views')
 const json = require('koa-json')
@@ -7,11 +8,11 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const redisStore = require('koa-redis')
 const session = require('koa-generic-session')
-const { REDIS_CONF } = require('./conf/db')
 const koaStatic = require('koa-static')
 const path = require('path')
+const { REDIS_CONF } = require('./conf/db')
 
-//引入路由
+// 引入路由
 const blogSquareApiRouter = require('./routes/api/blog-square')
 const blogProfileApiRouter = require('./routes/api/blog-profile')
 const homeApiRouter = require('./routes/api/blog-home')
@@ -29,7 +30,7 @@ let conf = {}
 // error handler
 if (isPrd) {
     conf = {
-        redirect: '/error'
+        redirect: '/error',
     }
 }
 onerror(app, conf)
@@ -37,18 +38,18 @@ onerror(app, conf)
 // middlewares
 app.use(
     bodyparser({
-        enableTypes: ['json', 'form', 'text']
-    })
+        enableTypes: ['json', 'form', 'text'],
+    }),
 )
 app.use(json())
 app.use(logger())
-app.use(koaStatic(__dirname + '/public'))
+app.use(koaStatic(`${__dirname}/public`))
 app.use(koaStatic(path.join(__dirname, '..', 'uploadFiles')))
 
 app.use(
-    views(__dirname + '/views', {
-        extension: 'ejs'
-    })
+    views(`${__dirname}/views`, {
+        extension: 'ejs',
+    }),
 )
 
 // logger
@@ -58,14 +59,14 @@ app.use(async (ctx, next) => {
     const ms = new Date() - start
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
-//配置jwt
+// 配置jwt
 // app.use(jwtkoa({
 //     secret:SESSION_SECRET_KEY
 // }).unless({
 //     path:[/^\/users\/login/]
 // }))//忽略哪些url
 
-//配置session
+// 配置session
 app.keys = [SESSION_SECRET_KEY]
 app.use(
     session({
@@ -74,12 +75,12 @@ app.use(
         cookie: {
             path: '/',
             httpOnly: true,
-            maxAge: 24 * 60 * 60 * 1000
+            maxAge: 24 * 60 * 60 * 1000,
         },
         store: redisStore({
-            all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
-        })
-    })
+            all: `${REDIS_CONF.host}:${REDIS_CONF.port}`,
+        }),
+    }),
 )
 // routes
 app.use(blogSquareApiRouter.routes(), blogSquareApiRouter.allowedMethods())
@@ -90,7 +91,6 @@ app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
 app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 app.use(error.routes(), error.allowedMethods())
-
 
 // error-handling
 app.on('error', (err, ctx) => {

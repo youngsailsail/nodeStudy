@@ -12,18 +12,17 @@ const { PAGE_SIZE } = require('../conf/constant')
  * @param {number} pageIndex 当前的页码
  */
 async function getProfileBlogList({ userName, pageIndex }) {
-    let result = await getBlogListByUser({ userName, pageSize: PAGE_SIZE, pageIndex })
+    const result = await getBlogListByUser({ userName, pageSize: PAGE_SIZE, pageIndex })
     const { count, blogList } = result
     return new SuccesModel({
         isEmpty: blogList.length == 0,
         count,
         blogList,
         pageSize: PAGE_SIZE,
-        pageIndex
+        pageIndex,
     })
 }
 
-
 module.exports = {
-    getProfileBlogList
+    getProfileBlogList,
 }

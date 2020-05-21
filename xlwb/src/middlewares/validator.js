@@ -1,20 +1,19 @@
-const {jsonSchemaFileInfo}=require('../model/ErrorInfo')
-const {ErrorModel}=require('../model/ResModels')
+const { jsonSchemaFileInfo } = require('../model/ErrorInfo')
+const { ErrorModel } = require('../model/ResModels')
 
-const genValidator=(validateFn)=>{
-    async function validator(ctx,next) {
+const genValidator = (validateFn) => {
+    async function validator(ctx, next) {
         const data = ctx.request.body
         const error = validateFn(data)
-        if(error){
-            ctx.body=new ErrorModel(jsonSchemaFileInfo)
+        if (error) {
+            ctx.body = new ErrorModel(jsonSchemaFileInfo)
             console.error(error)
-        }else{
+        } else {
             await next()
         }
-        
     }
     return validator
 }
-module.exports={
-    genValidator
+module.exports = {
+    genValidator,
 }

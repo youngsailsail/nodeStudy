@@ -15,5 +15,5 @@ const formatUser = (list) => {
     return _formatPicture(list)
 }
 module.exports = {
-    formatUser
+    formatUser,
 }

@@ -1,12 +1,13 @@
 const router = require('koa-router')()
 /**
- * 
+ *
  * @param {Object} ctx  koa2的上下文
  */
 const { loginViewCheck } = require('../../middlewares/loginCheck')
+
 const getUserInfo = (ctx) => {
     const data = {
-        isLogin: false
+        isLogin: false,
     }
     const { userInfo } = ctx.session
     if (userInfo) {
