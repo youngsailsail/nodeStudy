@@ -1,21 +1,20 @@
-const {validate}=require('./_validate')
-const SCHEMA={
+const { validate } = require('./_validate')
+
+const SCHEMA = {
     type: 'object',
     properties: {
         content: {
             type: 'string',
         },
-        images:{
+        images: {
             type: 'string',
-            maxLength:225,
-        }
-    }
+            maxLength: 225,
+        },
+    },
 
 }
 
-const blogValidate=(data)=>{
-    return validate(SCHEMA,data)
-}
-module.exports={
-    blogValidate
+const blogValidate = (data) => validate(SCHEMA, data)
+module.exports = {
+    blogValidate,
 }

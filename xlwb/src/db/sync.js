@@ -8,7 +8,7 @@ sql.authenticate()
     .catch((err) => {
         console.log(err)
     })
-sql.sync({ force: true }).then(res => {
+sql.sync({ force: true }).then((res) => {
     console.log('okforce')
     process.exit()
 })

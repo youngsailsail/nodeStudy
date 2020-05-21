@@ -1,5 +1,6 @@
 const sql = require('../sql')
 const { INTEGER } = require('../types')
+
 const UserRelation = sql.define('userRelation', {
     userId: {
         type: INTEGER,
@@ -10,6 +11,6 @@ const UserRelation = sql.define('userRelation', {
         type: INTEGER,
         allowNull: false,
         comment: '被关注人id',
-    }
+    },
 })
 module.exports = UserRelation

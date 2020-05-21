@@ -3,10 +3,11 @@ const { loginApiCheck } = require('../../middlewares/loginCheck')
 const { getProfileBlogList } = require('../../controller/blog-profile')
 const { followUser, unFollow } = require('../../controller/user-relation')
 const { getBlogListStr } = require('../../utils/blog')
+
 router.prefix('/api/profile')
 router.get('/loadMore/:userName/:pageIndex', loginApiCheck, async (ctx) => {
     const { userName, pageIndex } = ctx.params
-    let res = await getProfileBlogList({
+    const res = await getProfileBlogList({
         userName,
         pageIndex: parseInt(pageIndex),
     })
