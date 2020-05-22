@@ -59,7 +59,7 @@ router.get('/getAtList', loginApiCheck, async (ctx, next) => {
   let { data } = await getFollower({ userId });
   const { userList } = data;
   let list = userList.map((user) => {
-    return `${user.nickName}--${user.userName}`;
+    return `${user.nickName} - ${user.userName}`;
   });
   ctx.body = list;
 });
