@@ -8,12 +8,7 @@
       <i class="fa fa-picture-o"></i>
       插入一张图片
     </a>
-    <input
-      type="file"
-      accept="image/*"
-      id="file-picture"
-      style="display: none;"
-    />
+    <input type="file" accept="image/*" id="file-picture" style="display: none;" />
     <input type="hidden" id="input-img-url" /> &nbsp;
     <span id="span-img-name"></span>
   </div>
@@ -87,6 +82,7 @@
     $textContent.atwho({
       at: '@',
       data: '/api/user/getAtList',
+      //   data: ['Peter', 'Tom', 'Anne'],
     });
   });
 </script>

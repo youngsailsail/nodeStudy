@@ -17,7 +17,7 @@ const getUserInfo = async (userName, Password) => {
   if (res == null) {
     return res;
   }
-  return formatUser(res.dataValues);
+  return formatUser(res);
 };
 const createUser = async ({ userName, password, nickName, gender }) => {
   const res = await User.create({

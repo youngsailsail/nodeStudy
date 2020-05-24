@@ -6,11 +6,16 @@
     "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon --inspect=9229 bin/www",
     "prd": "cross-env NODE_ENV=prd pm2 start bin/www",
     "test": "cross-env NODE_ENV=test jest --runInBand --forceExit --colors",
-    "lint": "eslint --ext .js ./src --fix"
+    "lint": "eslint --ext .js ./src --fix",
+    "setprd": "cross-env NODE_ENV=production",
+    "init": "pm2 deploy ecosystem.config.js production setup",
+    "up": "pm2 deploy ecosystem.config.js production",
+    "one": "git add . && git commit -m'up' && git push && npm run up"
   },
   "dependencies": {
     "ajv": "^6.11.0",
     "cross-env": "^7.0.2",
+    "date-fns": "^2.14.0",
     "debug": "^4.1.1",
     "ejs": "^2.3.4",
     "eslint-config-airbnb-base": "^14.1.0",
